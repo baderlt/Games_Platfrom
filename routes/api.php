@@ -24,6 +24,7 @@ Route::post('/user/register', [AuthController::class, 'createUser']);
 Route::post('/user/login', [AuthController::class, 'loginUser']);
 
 Route::middleware(['auth:sanctum','BlockUser'])->group(function () {
+   
    // User routes
    Route::post('/user/logout', [AuthController::class, 'logout']);
    Route::get('/users/{username}', [UserController::class,'User_Profil'])->name('user.profile');
