@@ -126,14 +126,11 @@
     <script  >
 
 const delete_Btn =document.getElementById('Btn-delete')
-console.log(delete_Btn.dataset.game);
+
 // console.log(delete_Btn);  
 delete_Btn.addEventListener('click',(e)=>{     
-    //  console.log(e); 
         const form3 = document.getElementById('formDelete');
         const version = document.getElementById('version').value;
-        console.log(version);
-        console.log(e.target.dataset.game);
         // console.log(form3)
         form3.setAttribute("action","/admin/scores/"+e.target.dataset.game+"?version="+version);
         form3.setAttribute("methode","delete");
