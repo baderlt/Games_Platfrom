@@ -72,7 +72,7 @@
         <div class="right">
             <h1>Scores {{$game->slug}}</h1>
             <div style="flex-direction: row; display: flex;">
-                <form action="" style=" display: flex; gap:10px; ">
+                <form action="" method="Post" style=" display: flex; gap:10px; ">
                     <select name="version" id="version" style="height: 30px;  background-color: #2B2B2B;"  id="" required>
                         <option value="">Versions </option>
                         @foreach ($versions as $v)
