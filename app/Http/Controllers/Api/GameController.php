@@ -178,7 +178,8 @@ class GameController extends Controller
             $zip = new ZipArchive;
             $zipFilePath = public_path("storage/{$extractedPath}/{$zipFileName}");
             //// check if zip file open with succses
-            if ($zip->open($zipFilePath) === true) {
+          
+            if ($zip->open($zipFilePath,ZipArchive::CREATE)===true) {
                 // extracted the file zip
                 $extractResult = $zip->extractTo(public_path("storage/{$extractedPath}"));
                 $zip->close();

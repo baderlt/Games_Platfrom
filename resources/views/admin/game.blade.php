@@ -73,7 +73,7 @@
             <h1>Scores {{$game->slug}}</h1>
             <div style="flex-direction: row; display: flex;">
                 <form action="" style=" display: flex; gap:10px; ">
-                    <select name="version" id="version" style="height: 30px;  background-color: #2B2B2B;"  id="" require>
+                    <select name="version" id="version" style="height: 30px;  background-color: #2B2B2B;"  id="" required>
                         <option value="">Versions </option>
                         @foreach ($versions as $v)
                         <option value="{{$v->version}}">V{{$v->version}} </option>
@@ -86,7 +86,7 @@
     padding: 4px;width:100px; top:0px ;position: relative;" value="search" >
  
                 </form>
-                <form id="formDelete" action=""  onsubmit="return confirm('Are you sure you want to delete scores ?')">
+                <form id="formDelete" action="" method="POST"  onsubmit="return confirm('Are you sure you want to delete scores ?')">
     @csrf
     @method('DELETE')   
     <button type="submit"  id="Btn-delete" data-game="{{$game->slug}}"  class="Deleted">
@@ -132,6 +132,7 @@ delete_Btn.addEventListener('click',(e)=>{
     //  console.log(e); 
         const form3 = document.getElementById('formDelete');
         const version = document.getElementById('version').value;
+        console.log(version);
         console.log(e.target.dataset.game);
         // console.log(form3)
         form3.setAttribute("action","/admin/scores/"+e.target.dataset.game+"?version="+version);
