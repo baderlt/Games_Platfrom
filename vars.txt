@@ -1,4 +1,0 @@
-C:\Users\LATITUDE\AppData\Roaming\Composer\vendor\bin
-C:\Users\LATITUDE\AppData\Local\ComposerSetup\bin
-C:\wamp64\bin\php\php8.1.0
-C:\Users\LATITUDE\AppData\Roaming\npm
