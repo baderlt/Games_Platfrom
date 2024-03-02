@@ -20,6 +20,8 @@ use Exception;
 class Admin_Controller extends Controller
 {
     //
+
+
     public function index()
     {
         return view('login');

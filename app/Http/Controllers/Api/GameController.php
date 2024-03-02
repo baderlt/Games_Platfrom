@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
+
     ////////// get the games List 
     public function Games_List(Request $request)
     {
@@ -150,6 +151,9 @@ class GameController extends Controller
     {
         try {
             // Check if a file is uploaded
+
+            // $result =$this->UploadGame->Upload();
+            // return $result;
             if (!$request->hasFile('zipfile')) {
                 return response()->json(['status' => 'invalid', 'message' => 'File Zip not found '], 400);
             }
@@ -163,9 +167,6 @@ class GameController extends Controller
                 return response()->json(['status' => 'forbidden', 'message' => 'You are not the game author'], 403);
             }
             // Validation file the size and the type 'mimes=zip'
-            $request->validate([
-                'zipfile' => 'required|mimes:zip|max:70240',
-            ]);
 
             // get the last version and increment with 1 
             $NextVersion = GameVersion::where('game_id', '=', $game->id)->max('version') + 1;
@@ -178,11 +179,14 @@ class GameController extends Controller
             $zip = new ZipArchive;
             $zipFilePath = public_path("storage/{$extractedPath}/{$zipFileName}");
             //// check if zip file open with succses
-          
-            if ($zip->open($zipFilePath,ZipArchive::CREATE)===true) {
+            // dd($zip->open($zipFilePath,ZipArchive::CREATE));
+            if ($zip->open($zipFilePath) === true) {
                 // extracted the file zip
+                // dd('ggg');
+            //    dd(public_path("storage/{$extractedPath}"));
                 $extractResult = $zip->extractTo(public_path("storage/{$extractedPath}"));
                 $zip->close();
+                // dd($extractResult);
                 if ($extractResult === true) {
                     //// delete the file zip extracted 
                     unlink(public_path("storage/{$extractedPath}/{$zipFileName}"));
@@ -226,6 +230,7 @@ class GameController extends Controller
                 return response()->json(['status' => 'invalid', 'message' => 'Unable to open the ZIP file'], 400);
             }
         } catch (\Throwable $th) {
+            return $th;
             return response()->json(['status' => 'error', 'message' => $th->getMessage()], 500);
         }
     }
