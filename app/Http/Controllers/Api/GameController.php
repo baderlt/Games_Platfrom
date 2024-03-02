@@ -15,11 +15,9 @@ use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
-
     ////////// get the games List 
     public function Games_List(Request $request)
     {
-
         // Extract request parameters or use default values
         $page = $request->page ?? 0;
         $taille = $request->taille ?? 10;
@@ -44,7 +42,6 @@ class GameController extends Controller
             ->groupBy('games.slug', 'gameversions.game_id', 'games.titre', 'games.vignette', 'users.name')
             ->offset($page * $taille)
             ->limit($taille);
-
 
         // Execute the query
         $games = $query->get();
