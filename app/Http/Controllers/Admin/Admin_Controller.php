@@ -20,8 +20,6 @@ use Exception;
 class Admin_Controller extends Controller
 {
     //
-
-
     public function index()
     {
         return view('login');
@@ -61,8 +59,6 @@ class Admin_Controller extends Controller
         }
     }
 
-
-
     ////// logout function 
     public function logout()
     {
@@ -79,7 +75,6 @@ class Admin_Controller extends Controller
             return back()->with('error', $th->getMessage());
         }
     }
-
 
     ///// block  or unblock user  
     public function BlockUser(Request $request, $user_id)
