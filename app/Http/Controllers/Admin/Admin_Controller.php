@@ -147,7 +147,6 @@ class Admin_Controller extends Controller
     }
 
 
-
     ///////// list games with the last version 
     public function Games_List(Request $request)
     {
@@ -177,10 +176,6 @@ class Admin_Controller extends Controller
     }
 
 
-
-
-
-
     ////////// delete game with it scores and version 
     public function game_delete($slug)
     {
@@ -200,8 +195,6 @@ class Admin_Controller extends Controller
         // return redirect()->back()->with('success','game deleted successfully');
 
     }
-
-
 
 
     /////////////////////////// get the games with version and scores using game slug 
@@ -246,8 +239,6 @@ class Admin_Controller extends Controller
         //  return $scores;
         return view('admin.game')->with('game', $game)->with('scores', $scores)->with('versions', $versions);
     }
-
-
 
 
     /////////////////// get the scorse of game using slug 
@@ -300,10 +291,6 @@ class Admin_Controller extends Controller
     }
 
 
-
-
-
-
     /////////////////////// delete all scores users or scores of version 
     public function Delete_User_Scores(Request $request, $user, ?int  $version = null)
     {
@@ -326,9 +313,6 @@ class Admin_Controller extends Controller
     }
 
 
-
-
-
     /////////////// delete on score user 
     public function Delete_one_Score_User($user_id, $score_id)
     {
@@ -342,8 +326,6 @@ class Admin_Controller extends Controller
             throw $th;
         }
     }
-
-
 
 // This function  listing users based on the provided search query
     function List_Users(Request $request)
