@@ -63,6 +63,8 @@ class GameController extends Controller
         // Return the response as JSON
         return response()->json($response, 200);
     }
+
+    
     //////////// create a new game wit genirate a unique slug
     public function createGame(Request $request)
     {
@@ -110,8 +112,6 @@ class GameController extends Controller
     }
 
 
-
-
     ////////////get Game With Slug
     public function Game_Slug($slug = null)
     {
@@ -140,7 +140,6 @@ class GameController extends Controller
 
         return response()->json($game, 200);
     }
-
 
 
     /////////// upload a new version for game 
@@ -234,11 +233,6 @@ class GameController extends Controller
 
 
 
-
-
-
-
-
     //////////////////////// get index.html file for game specific and vesrsion specific
     public function Game_Version_Files($slug = null, $version = null)
     {
@@ -262,8 +256,6 @@ class GameController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Not Found'], 500);
         }
     }
-
-
 
     ////////////////////////////// edit game title and description
     public function Edit_Game(Request $request, $slug)
