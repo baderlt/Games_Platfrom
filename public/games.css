@@ -35,8 +35,8 @@ grid-template-rows: 200px 40px;
 }
 
 .miniature img {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     border-radius: 8px; /* Optional: Add border-radius for a rounded image */
 }
 .miniature{
@@ -124,6 +124,7 @@ b{
     border-radius: 8px;
     box-shadow: 4px 4px 8px rgb(66, 12, 12);
     padding: 10px;
+    height: calc(100vh - 30px);
     padding-bottom: 0px;
 
 }
@@ -136,6 +137,7 @@ b{
     padding: 10px;
     flex-flow: column;    
     padding-bottom: 0px;
+     height: calc(100vh - 30px);
     gap: 10px;
 }
 .right > h1{
