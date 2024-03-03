@@ -182,7 +182,6 @@ class GameController extends Controller
                 if ($extractResult === true) {
                     //// delete the file zip extracted 
                     unlink(public_path("storage/{$extractedPath}/{$zipFileName}"));
-
                     ////// get the file name of extracted game 
                     $fileName = pathinfo($zipFileName, PATHINFO_FILENAME);
                     $from = public_path("storage/{$extractedPath}/{$fileName}");
