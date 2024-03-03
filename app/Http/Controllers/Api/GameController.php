@@ -28,10 +28,10 @@ class GameController extends Controller
         if ($taille < 1) {
             $taille = 1;
         }
-
         if ($page < 0) {
             $page = 0;
         }
+        
         ///// get the games with slug,titre,vignette,uploadTimestamp (the last version of game ),name of auteur ,scoreCount the sum scores in this game 
         $query = Game::join('gameversions', 'games.id', '=', 'gameversions.game_id')
             ->join('users', 'games.auteur', '=', 'users.id')
@@ -45,7 +45,6 @@ class GameController extends Controller
 
         // Execute the query
         $games = $query->get();
-
         ///totale count
         $totalCount = $games->count();
         $pageCount = ceil($totalCount / $taille);
@@ -64,7 +63,6 @@ class GameController extends Controller
         return response()->json($response, 200);
     }
 
-    
     //////////// create a new game wit genirate a unique slug
     public function createGame(Request $request)
     {
@@ -115,7 +113,6 @@ class GameController extends Controller
     ////////////get Game With Slug
     public function Game_Slug($slug = null)
     {
-
         // Find the game with the given slug with the deleted games  games
         $game = Game::where('slug', '=', $slug)->withTrashed()->first();
         // Check if the game exists
@@ -136,7 +133,6 @@ class GameController extends Controller
             LIMIT 1) , null) as gamePath'))
             ->groupBy('games.slug', 'games.description', 'games.titre', 'games.vignette', 'users.name')
             ->get();
-
 
         return response()->json($game, 200);
     }
