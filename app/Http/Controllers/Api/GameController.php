@@ -338,7 +338,7 @@ class GameController extends Controller
         }
     }
 
-    
+    ////// function for get scores of games by slug .
     public function GameScores($slug)
     {
 
