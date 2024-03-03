@@ -137,7 +137,6 @@ class GameController extends Controller
         return response()->json($game, 200);
     }
 
-
     /////////// upload a new version for game 
     public function uploadVersion(Request $request, $slug)
     {
@@ -227,7 +226,6 @@ class GameController extends Controller
     }
 
 
-
     //////////////////////// get index.html file for game specific and vesrsion specific
     public function Game_Version_Files($slug = null, $version = null)
     {
@@ -307,10 +305,6 @@ class GameController extends Controller
     }
 
 
-
-
-
-
     //////////////////// delete game with all vesions and scores
     public function Delete_Game($slug)
     {
@@ -344,9 +338,7 @@ class GameController extends Controller
         }
     }
 
-
-
-
+    
     public function GameScores($slug)
     {
 
@@ -373,8 +365,6 @@ class GameController extends Controller
         ];
         return response()->json($response, 200);
     }
-
-
 
 
     //////////// add score for user 
