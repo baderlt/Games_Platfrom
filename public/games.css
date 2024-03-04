@@ -126,6 +126,7 @@ b{
     padding: 10px;
     height: calc(100vh - 30px);
     padding-bottom: 0px;
+    overflow-y: auto;
 
 }
 .right{
@@ -139,6 +140,7 @@ b{
     padding-bottom: 0px;
      height: calc(100vh - 30px);
     gap: 10px;
+    overflow-y: auto;
 }
 .right > h1{
     margin-bottom: 20px;

@@ -75,24 +75,24 @@
         <div class="right">
             <h1>Scores {{$game->slug}}</h1>
             <div style="margin-bottom: 10px; justify-content: space-between; flex-direction: row; display: flex;">
-            <div >
-                <form action="/kjnjuhuu" method="Post" >
-                    <select name="version" id="version" style="height: 30px;  background-color: #2B2B2B;" id="" required>
-                        <option value="">Versions </option>
-                        @foreach ($versions as $v)
-                        <option value="{{$v->version}}">V{{$v->version}} </option>
-                        @endforeach
-                    </select>
-                    <input type="submit" style="  height: 30px;  background-color: rgb(129, 19, 19);border: 0;border-radius: 4px;
+                <div>
+                    <form action="/kjnjuhuu" method="Post">
+                        <select name="version" id="version" style="height: 30px;  background-color: #2B2B2B;" id="" required>
+                            <option value="">Versions </option>
+                            @foreach ($versions as $v)
+                            <option value="{{$v->version}}">V{{$v->version}} </option>
+                            @endforeach
+                        </select>
+                        <input type="submit" style="  height: 30px;  background-color: rgb(129, 19, 19);border: 0;border-radius: 4px;
                     padding: 4px;width:100px; top:0px ;" value="search">
 
-                </form>
+                    </form>
                 </div>
-                <form id="formDelete" style=" position: relative;"  method="POST" action=""  >
-                
+                <form id="formDelete" style=" position: relative;" method="POST" action="">
+
                     @method('DELETE')
-                    <button type="submit" id="Btn-delete" data-game="{{$game->slug}}" class="delete-all"  >
-               Delete all
+                    <button type="submit" id="Btn-delete" data-game="{{$game->slug}}" class="delete-all">
+                        Delete all
 
                     </button>
                 </form>
@@ -102,7 +102,7 @@
             <div class="score">
                 <div>
                     <h2><b>#</b>{{$score->name}}</h4>
-                   
+
                         <h4><b>Version:</b>{{$score->version}}</h4>
                 </div>
 
@@ -110,14 +110,14 @@
                 <div>
 
                     <h4>{{$score->date}}</h4>
-                    <form id="formDelete-one-score" style=" position: relative;"  method="POST" action=""  >
-                
-                @method('DELETE')
-                    <button class="Deleted" type="button" data-id="{{$score->id}}" data-user="{{$score->name}}" data-score="{{$score->score}}" id="Delete-One-score"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg></button>
-    </form>
+                    <form id="formDelete-one-score" style=" position: relative;" action="{{route('admin.Delete_one_Score_User',['score_id'=>$score->id])}}">
+
+                        @method('DELETE')
+                        <button class="Deleted" type="button" data-id="{{$score->id}}" data-user="{{$score->name}}" data-score="{{$score->score}}" id="Delete-One-score"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                            </svg></button>
+                    </form>
                 </div>
             </div>
 
@@ -129,29 +129,30 @@
     <script>
         const delete_Btn = document.getElementById('Btn-delete')
         let form3 = document.getElementById('formDelete');
-        let from_delete_One=document.getElementById('formDelete-one-score');
-        let Delete_One_score=document.getElementById('Delete-One-score');
+        let from_delete_One = document.getElementById('formDelete-one-score');
+        let Delete_One_score = document.getElementById('Delete-One-score');
 
         delete_Btn.addEventListener('click', (e) => {
             e.preventDefault();
-            let confirmation=confirm('Are you sure you want to delete scores ?');
-            if(confirmation){
-               let version = document.getElementById('version').value;
-            form3.setAttribute("methode", "delete");
-            form3.setAttribute("action", "/admin/games/scores/" + e.target.dataset.game + "?version=" + version || null);
-            form3.setAttribute("methode", "delete");
-            form3.submit();
-            }else{
-            return ;
+            let confirmation = confirm('Are you sure you want to delete scores ?');
+            if (confirmation) {
+                let version = document.getElementById('version').value;
+                form3.setAttribute("methode", "delete");
+                form3.setAttribute("action", "/admin/games/scores/" + e.target.dataset.game + "?version=" + version || null);
+                form3.setAttribute("methode", "delete");
+                form3.submit();
+            } else {
+                return;
             }
-         
+
         });
 
-        Delete_One_score.addEventListener('click',(e)=>{
+        Delete_One_score.addEventListener('click', (e) => {
             e.preventDefault();
-            let button=e.target.closest("button")
-            let confirmation=confirm(`Are you sure you want to delete score ${button.dataset.score} of user ${button.dataset.user} ?`);
+            let button = e.target.closest("button")
+            let confirmation = confirm(`Are you sure you want to delete score ${button.dataset.score} of user ${button.dataset.user} ?`);
             from_delete_One.setAttribute("methode", "delete");
+            from_delete_One.submit();
         })
     </script>
     @endsection

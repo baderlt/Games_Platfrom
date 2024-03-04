@@ -316,12 +316,11 @@ class Admin_Controller extends Controller
 
 
     /////////////// delete on score user 
-    public function Delete_one_Score_User($user_id, $score_id)
+    public function Delete_one_Score_User($score_id)
     {
         try {
 
-            Score::where('user_id', '=', $user_id)
-                ->where('id', '=', $score_id)
+            Score::where('id', '=', $score_id)
                 ->delete();
             return back()->with('message', 'scores deleted with success');
         } catch (\Throwable $th) {

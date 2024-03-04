@@ -46,12 +46,15 @@ Route::middleware('auth:admin')->group(function () {
             Route::delete('/{slug}', [Admin_Controller::class, 'game_delete'])->name('admin.games_delete');
             Route::get('/', [Admin_Controller::class, 'Games_List'])->name('admin.games');
             Route::get('/{slug}', [Admin_Controller::class, 'Game_slug'])->name('admin.games.slug');
+            ///scores 
+            Route::prefix('scores')->group(function () {
             Route::get('/{slug}/scores', [Admin_Controller::class, 'GameScores'])->name('admin.GameScores');
-            Route::delete('/scores/{slug}', [Admin_Controller::class, 'Delete_Scores_Game'])->name('admin.Delete_scores_version');
-            Route::delete('/scores/user/{user}/{version?}', [Admin_Controller::class, 'Delete_User_Scores'])
-                ->name('admin.Delete_User_Scores');
-            Route::delete('/score/user/{user_id}/{score_id?}', [Admin_Controller::class, 'Delete_one_Score_User'])
+            Route::delete('/{slug}', [Admin_Controller::class, 'Delete_Scores_Game'])->name('admin.Delete_scores_version');
+            Route::delete('/user/{user}/{version?}', [Admin_Controller::class, 'Delete_User_Scores']) ->name('admin.Delete_User_Scores');
+            Route::delete('/user/{score_id}', [Admin_Controller::class, 'Delete_one_Score_User'])
                 ->name('admin.Delete_one_Score_User');
+            });
+
         });
     });
 });
