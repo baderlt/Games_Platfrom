@@ -235,7 +235,7 @@ class Admin_Controller extends Controller
             ->when($query, function ($query_) use ($query) {
                 $query_->where('gameversions.version', '=', $query);
             })
-            ->select('score', 'users.name as name', 'gameversions.version as version', 'scores.created_at as date')->get();
+            ->select('score','scores.id', 'users.name as name', 'gameversions.version as version', 'scores.created_at as date')->get();
 
 
         //  return $scores;
