@@ -15,11 +15,9 @@ use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
-
     ////////// get the games List 
     public function Games_List(Request $request)
     {
-
         // Extract request parameters or use default values
         $page = $request->page ?? 0;
         $taille = $request->taille ?? 10;
@@ -30,10 +28,10 @@ class GameController extends Controller
         if ($taille < 1) {
             $taille = 1;
         }
-
         if ($page < 0) {
             $page = 0;
         }
+        
         ///// get the games with slug,titre,vignette,uploadTimestamp (the last version of game ),name of auteur ,scoreCount the sum scores in this game 
         $query = Game::join('gameversions', 'games.id', '=', 'gameversions.game_id')
             ->join('users', 'games.auteur', '=', 'users.id')
@@ -45,10 +43,8 @@ class GameController extends Controller
             ->offset($page * $taille)
             ->limit($taille);
 
-
         // Execute the query
         $games = $query->get();
-
         ///totale count
         $totalCount = $games->count();
         $pageCount = ceil($totalCount / $taille);
@@ -66,6 +62,7 @@ class GameController extends Controller
         // Return the response as JSON
         return response()->json($response, 200);
     }
+
     //////////// create a new game wit genirate a unique slug
     public function createGame(Request $request)
     {
@@ -113,12 +110,9 @@ class GameController extends Controller
     }
 
 
-
-
     ////////////get Game With Slug
     public function Game_Slug($slug = null)
     {
-
         // Find the game with the given slug with the deleted games  games
         $game = Game::where('slug', '=', $slug)->withTrashed()->first();
         // Check if the game exists
@@ -140,11 +134,8 @@ class GameController extends Controller
             ->groupBy('games.slug', 'games.description', 'games.titre', 'games.vignette', 'users.name')
             ->get();
 
-
         return response()->json($game, 200);
     }
-
-
 
     /////////// upload a new version for game 
     public function uploadVersion(Request $request, $slug)
@@ -190,7 +181,6 @@ class GameController extends Controller
                 if ($extractResult === true) {
                     //// delete the file zip extracted 
                     unlink(public_path("storage/{$extractedPath}/{$zipFileName}"));
-
                     ////// get the file name of extracted game 
                     $fileName = pathinfo($zipFileName, PATHINFO_FILENAME);
                     $from = public_path("storage/{$extractedPath}/{$fileName}");
@@ -236,12 +226,6 @@ class GameController extends Controller
     }
 
 
-
-
-
-
-
-
     //////////////////////// get index.html file for game specific and vesrsion specific
     public function Game_Version_Files($slug = null, $version = null)
     {
@@ -265,8 +249,6 @@ class GameController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Not Found'], 500);
         }
     }
-
-
 
     ////////////////////////////// edit game title and description
     public function Edit_Game(Request $request, $slug)
@@ -323,10 +305,6 @@ class GameController extends Controller
     }
 
 
-
-
-
-
     //////////////////// delete game with all vesions and scores
     public function Delete_Game($slug)
     {
@@ -360,9 +338,7 @@ class GameController extends Controller
         }
     }
 
-
-
-
+    ////// function for get scores of games by slug .
     public function GameScores($slug)
     {
 
@@ -389,8 +365,6 @@ class GameController extends Controller
         ];
         return response()->json($response, 200);
     }
-
-
 
 
     //////////// add score for user 
