@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\LoginEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -50,6 +51,7 @@ class Admin_Controller extends Controller
                 $admin->lastConextion = now()->format('Y-m-d H:i:s');
                 // Auth::guard('admin')->loginUsingId($admin->id);
                 $admin->save();
+                event(new LoginEvent($admin));
                 return redirect()->route('admin.admins');
             }
 
