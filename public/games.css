@@ -119,10 +119,9 @@ b{
 }
 .left{
     display: grid;
-    background-color: rgb(1, 24, 1);
+    background-color: rgba(1, 24, 1, 0.204);
     border: 1px white solid;
     border-radius: 8px;
-    box-shadow: 4px 4px 8px rgb(66, 12, 12);
     padding: 10px;
     height: calc(100vh - 30px);
     padding-bottom: 0px;
@@ -131,10 +130,10 @@ b{
 }
 .right{
   display: flex;
-    background-color: rgb(1, 24, 1);
+  background-color: rgba(1, 24, 1, 0.204);
     border: 1px white solid;
     border-radius: 8px;
-    box-shadow: 4px 4px 8px rgb(66, 12, 12);
+
     padding: 10px;
     flex-flow: column;    
     padding-bottom: 0px;
