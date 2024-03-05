@@ -138,7 +138,7 @@ class Admin_Controller extends Controller
                     $query_->where('id', 'like', '%' . $query . '%')
                         ->orwhere('name', 'like', '%' . $query . '%');
                 })
-                ->paginate(5);
+                ->paginate(8);
             ////// return view admins with list admins and pagination with 5 
             return view('admin.admins')->with('admins', $admins);
         } catch (\Throwable $th) {
@@ -170,7 +170,7 @@ class Admin_Controller extends Controller
                 ->get();
             // dd(DB::getQueryLog());
 
-            return view('admin.games')->with('games', $games);
+            return view('admin.games')->with('games', $games)->with('serched', $query);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -203,6 +203,7 @@ class Admin_Controller extends Controller
     {
 
         $query = $request->query('version');
+        $user = $request->query('users');
         $game = Game::where('slug', '=', $slug)->withTrashed()->first();
         ////// check if the game exists 
         if (!$game) {
@@ -226,19 +227,28 @@ class Admin_Controller extends Controller
             ->first();
 
 
-        ////// get the scores of game 
-        $scores = Score::join('gameversions', 'gameversions.id', '=', 'scores.version_jeu_id')
-            ->join('games', 'games.id', '=', 'gameversions.game_id')
-            ->join('users', 'games.auteur', '=', 'users.id')
-            ->where('games.slug', '=', $slug)
-            ->when($query, function ($query_) use ($query) {
-                $query_->where('gameversions.version', '=', $query);
-            })
-            ->select('score','scores.id', 'users.name as name', 'gameversions.version as version', 'scores.created_at as date')->get();
+        ////// get the all scores of game 
+        $scores = Score::select('score', 'scores.id', 'users.name as name', 'gameversions.version as version', 'scores.created_at as date')
+        ->join('gameversions', 'gameversions.id', '=', 'scores.version_jeu_id')
+        ->join('games', 'games.id', '=', 'gameversions.game_id')
+        ->join('users', 'scores.user_id', '=', 'users.id')
+        ->where('games.slug', '=', $slug);
 
+        /////  get the name of users has a scores in this game , for use in filter 
+        $names = $scores->pluck('name')->unique()->values()->all();
 
-        //  return $scores;
-        return view('admin.game')->with('game', $game)->with('scores', $scores)->with('versions', $versions)->with("versionItem",$query);
+        //////// gte the scores filtred with version and user ;
+        $scores = $scores->when($query, function ($query_) use ($query) {
+            $query_->where('gameversions.version', '=', $query);
+        })
+        ->when($user, function ($query_) use ($user) {
+                $query_->where('users.name', $user);
+         })
+        ->orderby('score', 'desc')
+        ->get();
+
+        return view('admin.game')->with('game', $game)->with('scores', $scores)->with('versions', $versions)->with("versionItem", $query)
+            ->with('names', $names)->with('useritem', $user);
     }
 
 
@@ -300,15 +310,15 @@ class Admin_Controller extends Controller
     {
 
         try {
-             // Extract the version from the query parameter
+            // Extract the version from the query parameter
             $version = $request->query('');
-         // Use the `when` method to conditionally apply the version filter
+            // Use the `when` method to conditionally apply the version filter
             Score::where('user_id', '=', $user)
                 ->when($version, function ($query) use ($version) {
                     $query->where('version_jeu_id', '=', $version);
                 })
                 ->delete();
-                // Return a response indicating successful deletion
+            // Return a response indicating successful deletion
             return back()->with('message', 'scores deleted with success');
             // }
         } catch (\Throwable $th) {
@@ -330,7 +340,7 @@ class Admin_Controller extends Controller
         }
     }
 
-// This function  listing users based on the provided search query
+    // This function  listing users based on the provided search query
     function List_Users(Request $request)
     {
         try {
@@ -339,8 +349,8 @@ class Admin_Controller extends Controller
             $users = User::when($query, function ($query_) use ($query) {
                 $query_->where('name', 'like', '%' . $query . '%');
             })
-                ->paginate(5);
-                        // Return the users to the 'admin.users' view
+                ->paginate(8);
+            // Return the users to the 'admin.users' view
 
             return view('admin.users')->with('users', $users);
         } catch (\Throwable $th) {

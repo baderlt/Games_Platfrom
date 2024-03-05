@@ -86,6 +86,12 @@
                             <option value="{{$v->version}}" {{ $versionItem == $v->version ? 'selected' : '' }}>V{{$v->version}} </option>
                             @endforeach
                         </select>
+                        <select name="users" id="users" style="height: 30px;  background-color: #2B2B2B;" id="">
+                            <option value="">Users </option>
+                            @foreach ($names as $u)
+                            <option value="{{$u}}" {{ $useritem == $u ? 'selected' : '' }}>{{$u}} </option>
+                            @endforeach
+                        </select>
                         <input type="submit" style="  height: 30px;  background-color: rgb(129, 19, 19);border: 0;border-radius: 4px;
                    padding: 4px;width:100px; top:0px ;" value="search" />
                     </form>
@@ -100,9 +106,10 @@
                     </button>
                 </form>
             </div>
-
+            @if(count($scores) > 0)
+            <div style="height: calc(100% - 20px );overflow-y: auto; padding: 5px;">
             @foreach ($scores as $score)
-            <div class="score">
+            <div class="score" >
                 <div>
                     <h2><b>#</b>{{$score->name}}</h4>
 
@@ -122,8 +129,12 @@
                     </form>
                 </div>
             </div>
-
+            
             @endforeach
+            </div>
+            @else 
+               <h2 style="margin-top: 20px; text-align: center;">not Found </h2>
+            @endif
         </div>
 
         @endif
@@ -139,8 +150,9 @@
             let confirmation = confirm('Are you sure you want to delete scores ?');
             if (confirmation) {
                 let version = document.getElementById('version').value;
+                let user = document.getElementById('users').value;
                 form3.setAttribute("methode", "delete");
-                form3.setAttribute("action", "/admin/games/scores/" + e.target.dataset.game + "?version=" + version || null);
+                form3.setAttribute("action", "/admin/games/scores/" + e.target.dataset.game + "?version=" + encodeURIComponent(version || '') + "&users=" + encodeURIComponent(user || ''));
                 form3.setAttribute("methode", "delete");
                 form3.submit();
             } else {

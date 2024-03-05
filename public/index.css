@@ -4,7 +4,11 @@
 *{
 
 font-family: 'Press Start 2P', system-ui;
+scrollbar-color: rgba(68, 3, 3, 0.837) rgb(0, 0, 0);
+scrollbar-width: thin !important;
+scroll-behavior: smooth;
  }
+
 .table {
     width: 100%;
     margin-bottom: 1rem;
@@ -67,7 +71,10 @@ background-color: #990000 !important;
     
 }
 .container{
-margin: 10px;
+/* margin: 10px; */
+margin-top: 10px;
+scrollbar-width: thin !important;
+
 }
 .blocked{
     background-color: #990000 !important;

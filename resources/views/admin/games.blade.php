@@ -18,12 +18,13 @@
 @extends('admin.home')
 
 @section('content')
-<div class="container">
-    <h2 style="text-align: center; margin: 10px">Games List</h2>
+<div class="container" style="overflow-y: none;">
+    <div>
+    <h2 style="text-align: center; margin: 10">Games List</h2>
     <form id="form" action="" method="get">
     <div style="text-align:rightz ; margin: 10px" class="searchBox">
 
-        <input class="searchInput" type="text" id="search" name="search" placeholder="Search">
+        <input class="searchInput" type="text" id="search" name="search" value="{{$serched}}" placeholder="Search">
         <button class="searchButton"  >
 
         <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
@@ -53,8 +54,10 @@
         </button>
         </form>
 
-      
+      </div>
     </div>
+    <div style="height: calc(100vh - 126px); overflow-y: auto;padding: 10px;">
+    @if(count($games) > 0 )
 @foreach ($games as $game )
 <div class="grid  {{ $game->trashed() ? 'game-geleted':'' }}">
     <div class="miniature">
@@ -94,6 +97,10 @@
 </div>
     
 @endforeach
+@else
+<h2 style="text-align: center; margin-top:10%; ">No results found .. !</h2>
+@endif
+</div>
 </div>
 @endsection
 @push('scripts')
