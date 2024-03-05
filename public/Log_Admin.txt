@@ -1,3 +1,5 @@
 2024-03-04 13:44:34 id:1 name:administrateur1 Browser Details:Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0
 2024-03-04 15:14:47 id:1 name:administrateur1 Browser Details:Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0
 2024-03-04 19:58:08 id:1 name:administrateur1 Browser Details:PostmanRuntime/7.36.3
+2024-03-05 14:14:07 id:1 name:administrateur1 Browser Details:Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0
+2024-03-05 15:02:20 id:1 name:administrateur1 Browser Details:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0

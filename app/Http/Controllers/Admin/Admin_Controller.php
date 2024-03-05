@@ -238,8 +238,9 @@ class Admin_Controller extends Controller
 
 
         //  return $scores;
-        return view('admin.game')->with('game', $game)->with('scores', $scores)->with('versions', $versions);
+        return view('admin.game')->with('game', $game)->with('scores', $scores)->with('versions', $versions)->with("versionItem",$query);
     }
+
 
 
     /////////////////// get the scorse of game using slug 
@@ -271,6 +272,7 @@ class Admin_Controller extends Controller
     /////////////////  dlete score of all game version or one version 
     public function Delete_Scores_Game(Request $request, $slug)
     {
+
         $game = Game::where('slug', '=', $slug)->first();
         if (!$game) {
             return redirect()->back()->with('error', 'the game not found');
@@ -283,11 +285,12 @@ class Admin_Controller extends Controller
             }
             return back()->with('message', "scores {$slug} deleted successfully");
         }
+
         $version_Game = GameVersion::where("game_id", $game->id)
             ->where('version', '=', $version)
             ->first();
         Score::where('version_jeu_id', '=', $version_Game->id)->delete();
-        return back()->with('message', '"scores {$slug} - version  {$version} deleted successfully"');
+        return back()->with('message', "scores {$slug} - version  {$version} deleted successfully");
         // return  "scores {$slug} - version  {$version} deleted successfully";
     }
 
