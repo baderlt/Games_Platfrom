@@ -104,13 +104,12 @@
                     <th>Name</th>
                     <th>Last Conexion </th>
                     <th>Join at </th>
-
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($users as $user)
-                <tr class="{{$user->blocked ==1 ? 'blocked':''}}">
+                <tr class="{{$user->blocked ==1 ? 'blocked':''}} Profile">
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->lastConextion }}</td>
@@ -132,6 +131,7 @@
                         </form>
                         @endif
                     </td>
+
                 </tr>
                 @empty
                 <tr>
@@ -145,6 +145,7 @@
     </div>
 
     <div class="modal hidden ">
+
         <div class="from-modal">
             <h1>Block user </h1>
             <form style="display: block;" method="POST" class="bodyModal" id="form1">
@@ -162,9 +163,27 @@
     @push("scripts")
     <script type="module">
         const modal = document.querySelector('.modal')
+
+
+        document.querySelectorAll('.Profile').forEach((item) => {
+            item.addEventListener('click', test);
+        })
+
+        function test() {
+            console.log('ddd');
+        }
+        document.getElementsByClassName('from-modal')[0].addEventListener('click', (e) => {
+            e.stopPropagation();
+        })
+        /////for close modal
+        modal.addEventListener('click', (e) => {
+            modal.classList.add('hidden');
+        })
+        ////// for block or deblock user 
         const blocs = document.querySelectorAll('.blockBtn')
         blocs.forEach(element => {
             element.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const form1 = document.getElementById('form1')
                 modal.classList.remove('hidden')
                 form1.setAttribute("action", "/admin/users/block/" + e.target.dataset.user)
@@ -177,10 +196,8 @@
 
         searchButton.addEventListener('click', function(e) {
             e.preventDefault();
-
             const searchInput = document.getElementById('search');
             const searchValue = searchInput.value;
-
             // if (searchValue=="") {
             //         return false;
             //     }
