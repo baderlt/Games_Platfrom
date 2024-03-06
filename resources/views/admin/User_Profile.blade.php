@@ -68,5 +68,4 @@ item.addEventListener('click',function(e){
 })
     })
 </script>
-
 @endsection
