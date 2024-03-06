@@ -66,8 +66,6 @@ item.addEventListener('click',function(e){
    let href=`${window.location.origin}/admin/games/${game}`;
    a.href=href;
    a.click();
- 
-
 })
     })
 </script>
