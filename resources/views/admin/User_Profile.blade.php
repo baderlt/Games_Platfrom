@@ -15,7 +15,6 @@
         <div class="game-miniature" style="height: 200px;background-color: transparent; border:0 ;margin-top: 0;">
             <img class="img-game" style="border-radius:50%;  height: 190px; width: 190px;" src="{{asset('profile.gif')}}" alt="Vignette">
         </div>
-
         <h3><b>number:</b>{{$user->id}} </h3>
         <h3><b>name:</b>{{$user->name}} </h3>
         <h3><b>Last connexion:</b>{{$user->lastConextion}}</h3>
