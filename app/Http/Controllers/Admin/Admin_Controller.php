@@ -229,10 +229,10 @@ class Admin_Controller extends Controller
 
         ////// get the all scores of game 
         $scores = Score::select('score', 'scores.id', 'users.name as name', 'gameversions.version as version', 'scores.created_at as date')
-        ->join('gameversions', 'gameversions.id', '=', 'scores.version_jeu_id')
-        ->join('games', 'games.id', '=', 'gameversions.game_id')
-        ->join('users', 'scores.user_id', '=', 'users.id')
-        ->where('games.slug', '=', $slug);
+            ->join('gameversions', 'gameversions.id', '=', 'scores.version_jeu_id')
+            ->join('games', 'games.id', '=', 'gameversions.game_id')
+            ->join('users', 'scores.user_id', '=', 'users.id')
+            ->where('games.slug', '=', $slug);
 
         /////  get the name of users has a scores in this game , for use in filter 
         $names = $scores->pluck('name')->unique()->values()->all();
@@ -241,11 +241,11 @@ class Admin_Controller extends Controller
         $scores = $scores->when($query, function ($query_) use ($query) {
             $query_->where('gameversions.version', '=', $query);
         })
-        ->when($user, function ($query_) use ($user) {
+            ->when($user, function ($query_) use ($user) {
                 $query_->where('users.name', $user);
-         })
-        ->orderby('score', 'desc')
-        ->get();
+            })
+            ->orderby('score', 'desc')
+            ->get();
 
         return view('admin.game')->with('game', $game)->with('scores', $scores)->with('versions', $versions)->with("versionItem", $query)
             ->with('names', $names)->with('useritem', $user);
@@ -353,6 +353,26 @@ class Admin_Controller extends Controller
             // Return the users to the 'admin.users' view
 
             return view('admin.users')->with('users', $users);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    ///////////  gte the user profile his games and scores 
+    public function Profile_User($username)
+    {
+        try {
+
+            $user = User::where('name', '=', $username)
+                ->with(['games' => function ($query_) {
+                    $query_->withTrashed();
+                }])->first();
+            if (!$user) {
+                return back()->with('message', 'not found ');
+            }
+            // return $user;
+            return view('admin.User_Profile')->with('username', $username)->with('user', $user);
         } catch (\Throwable $th) {
             throw $th;
         }

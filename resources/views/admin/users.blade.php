@@ -109,7 +109,7 @@
             </thead>
             <tbody>
                 @forelse($users as $user)
-                <tr class="{{$user->blocked ==1 ? 'blocked':''}} Profile">
+                <tr class="{{$user->blocked ==1 ? 'blocked':''}} Profile" data-user="{{$user->name}}">
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->lastConextion }}</td>
@@ -164,14 +164,17 @@
     <script type="module">
         const modal = document.querySelector('.modal')
 
-
+        /////// this function for get craate url to the profile user page 
         document.querySelectorAll('.Profile').forEach((item) => {
-            item.addEventListener('click', test);
+            item.addEventListener('click', (e) => {
+                let user = e.target.closest('.Profile').dataset.user;
+                let a = document.createElement('a');
+                let href = location.href + "/" + user;
+                a.href = href;
+                a.click();
+            });
         })
-
-        function test() {
-            console.log('ddd');
-        }
+        ///////////////
         document.getElementsByClassName('from-modal')[0].addEventListener('click', (e) => {
             e.stopPropagation();
         })

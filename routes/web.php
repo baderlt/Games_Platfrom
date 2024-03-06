@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Admin_Controller;
-use App\Http\Controllers\Api\UserController;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Api\GameController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +34,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::prefix('users')->group(function () {
             Route::post('/block/{user_id?}', [Admin_Controller::class, 'BlockUser'])->name('admin.BlockUser');
             Route::get('/', [Admin_Controller::class, 'List_Users'])->name('admin.users');
+            Route::get('/{username}', [Admin_Controller::class,'Profile_User'])->name('user.profile');
         });
 
         // Admins routes
