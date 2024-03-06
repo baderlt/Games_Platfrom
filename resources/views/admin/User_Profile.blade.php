@@ -47,7 +47,6 @@
             @endforeach
         </div>
     </div>
-
     <div class="right" style="height: calc(100vh - 100px);">
 
     </div>
