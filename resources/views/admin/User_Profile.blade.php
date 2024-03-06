@@ -8,7 +8,6 @@
     </svg>
     {{$username}}
 </h1>
-
 <div class="game">
     <div class="left" style="     height: calc(100vh - 100px);">
 
