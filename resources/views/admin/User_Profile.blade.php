@@ -8,14 +8,12 @@
     </svg>
     {{$username}}
 </h1>
-
 <div class="game">
     <div class="left" style="     height: calc(100vh - 100px);">
 
         <div class="game-miniature" style="height: 200px;background-color: transparent; border:0 ;margin-top: 0;">
             <img class="img-game" style="border-radius:50%;  height: 190px; width: 190px;" src="{{asset('profile.gif')}}" alt="Vignette">
         </div>
-
         <h3><b>number:</b>{{$user->id}} </h3>
         <h3><b>name:</b>{{$user->name}} </h3>
         <h3><b>Last connexion:</b>{{$user->lastConextion}}</h3>
@@ -48,10 +46,6 @@
             @endforeach
         </div>
     </div>
-
-
-
-
     <div class="right" style="height: calc(100vh - 100px);">
 
     </div>
@@ -69,10 +63,7 @@ item.addEventListener('click',function(e){
    let href=`${window.location.origin}/admin/games/${game}`;
    a.href=href;
    a.click();
- 
-
 })
     })
 </script>
-
 @endsection

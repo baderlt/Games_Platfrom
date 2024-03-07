@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>users</title>
 
-
-
     <style>
         .modal {
             width: 100vw;
@@ -95,7 +93,6 @@
             </div>
 
         </form>
-
 
         <table class="table">
             <thead>
