@@ -1,37 +1,58 @@
-version: '3.7'
+# version: '3.7'
+
+# services:
+#     app:
+#         build:
+#             context: .
+#             dockerfile: ./Dockerfile
+#         image: 'shouts.dev/laravel'
+#         container_name: shouts-laravel-app
+#         ports:
+#             - "80:80"
+#         volumes:
+#             - ./:/var/www/html
+#         networks:
+#             - laravel-shouts
+#         depends_on:
+#             - mysql
+#     mysql:
+#         image: 'mariadb:latest'
+#         container_name: shouts-laravel-db
+#         restart: unless-stopped
+#         ports:
+#             - "3307:3306"
+#         environment:
+#             MYSQL_DATABASE: ${DB_DATABASE}
+#             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+#             MYSQL_PASSWORD: ${DB_PASSWORD}
+#             MYSQL_USER: ${DB_USERNAME}
+#             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+#         volumes:
+#             - ./database/dbdata:/var/lib/mysql
+#         networks:
+#             - laravel-shouts
+
+# networks:
+#     laravel-shouts:
+#         driver: bridge
+
+version: '3'
 
 services:
-    app:
-        build:
-            context: .
-            dockerfile: ./Dockerfile
-        image: 'shouts.dev/laravel'
-        container_name: shouts-laravel-app
-        ports:
-            - "80:80"
-        volumes:
-            - ./:/var/www/html
-        networks:
-            - laravel-shouts
-        depends_on:
-            - mysql
-    mysql:
-        image: 'mariadb:latest'
-        container_name: shouts-laravel-db
-        restart: unless-stopped
-        ports:
-            - "3307:3306"
-        environment:
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_USER: ${DB_USERNAME}
-            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-        volumes:
-            - ./database/dbdata:/var/lib/mysql
-        networks:
-            - laravel-shouts
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
 
-networks:
-    laravel-shouts:
-        driver: bridge
+  mysql:
+    image: mysql:latest
+    environment:
+        MYSQL_DATABASE: ${DB_DATABASE}
+        MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        MYSQL_PASSWORD: ${DB_PASSWORD}
+        MYSQL_USER: ${DB_USERNAME}
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
