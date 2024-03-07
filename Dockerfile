@@ -1,38 +1,34 @@
-# Use an official PHP runtime as a parent image
-FROM php:8.1.0-apache
+FROM php:7.4-fpm
+
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    libzip-dev \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
     unzip
 
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql zip
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Enable Apache modules
-RUN a2enmod rewrite
+# Get latest Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set the working directory to /var/www/html
-WORKDIR /var/www/html
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
-# Copy composer.json and composer.lock
-COPY composer.json composer.lock ./
+# Set working directory
+WORKDIR /var/www
 
-# Install dependencies
-RUN composer install --no-scripts --no-autoloader
-
-# Copy the application code
-COPY . .
-
-# Generate autoload files
-RUN composer dump-autoload --optimize
-
-# Set permissions for Laravel
-RUN chown -R www-data:www-data storage bootstrap/cache
-
-# Expose port 80
-EXPOSE 80
-
-# CMD for starting Apache
-CMD ["apache2-foreground"]
+USER $user
