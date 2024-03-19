@@ -331,17 +331,10 @@ class GameController extends Controller
 
         ]);
         if ($validator->fails()) {
-            $violations = [];
-            foreach ($validator->errors()->messages() as $field => $messages) {
-                $violations[$field] = [
-                    'message' => $messages[0],
-                ];
-            }
-
             return response()->json([
                 'status' => 'invalid',
                 'message' => 'Le corps de la demande n\'est pas valide.',
-                'violations' => $violations,
+                'violations' => $validator->errors(),
             ], 400);
         }
 
