@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User_login;
+use App\Http\Requests\User_Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -20,26 +22,9 @@ class AuthController extends Controller
 
 
     ///////// register for user with name and password 
-    public function createUser(Request $request)
+    public function createUser(User_Request $request)
     {
         try {
-            //validation data usinf validator 
-            $validateUser = Validator::make(
-                $request->all(),
-                [
-                    'name' => 'required|string|unique:users,name|min:4|max:60',
-                    'password' => 'required|min:8|max:65536'
-                ]
-            );
-            // Check if validation fails
-            if ($validateUser->fails()) {
-                // Return a JSON response with validation error details
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
             // Create a new user 
             $user = User::create([
                 'name' => $request->name,
@@ -65,24 +50,9 @@ class AuthController extends Controller
      */
 
     /////login for user 
-    public function loginUser(Request $request)
+    public function loginUser(User_login $request)
     {
         try {
-            $validateUser = Validator::make(
-                $request->all(),
-                [
-                    'name' => 'required|string|min:4|max:60',
-                    'password' => 'required|min:8|max:65536'
-                ]
-            );
-            // Check if validation fails
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
             //// get the user 
             $user = User::where('name', $request->name)->first();
             ////// check if user is blocked

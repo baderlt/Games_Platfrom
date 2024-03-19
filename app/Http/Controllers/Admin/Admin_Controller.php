@@ -30,17 +30,6 @@ class Admin_Controller extends Controller
     public function login(Login_Admin $request)
     {
 
-        // $validateUser = Validator::make(
-        //     $request->all(),
-        //     [
-        //         'name' => 'required|string|min:4|max:60',
-        //         'password' => 'required|min:8|max:65536'
-        //     ]
-        // );
-        /////// if the validation fails
-        // if ($validateUser->fails()) {
-        //     return redirect()->back()->withErrors($validateUser->errors());
-        // }
         try {
             if (Auth::guard('admin')->attempt(['name' => $request->name, 'password' => $request->password])) {
                 ///////// insert the last conexion of user if Authenticated

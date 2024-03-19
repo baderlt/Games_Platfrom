@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Game_Request;
 use Illuminate\Http\Request;
 use App\Models\Game;
 use Illuminate\Support\Facades\DB;
@@ -64,29 +65,8 @@ class GameController extends Controller
     }
 
     //////////// create a new game wit genirate a unique slug
-    public function createGame(Request $request)
+    public function createGame(Game_Request $request)
     {
-        // Validate the request data using  Validator
-        $validator = Validator::make($request->all(), [
-            'titre' => 'required|string|min:3|max:60',
-            'description' => 'string|min:0|max:200',
-
-        ]);
-        // Check if validation fails
-        if ($validator->fails()) {
-            $violations = [];
-            foreach ($validator->errors()->messages() as $field => $messages) {
-                $violations[$field] = [
-                    'message' => $messages[0],
-                ];
-            }
-
-            return response()->json([
-                'status' => 'invalid',
-                'message' => 'Le corps de la demande n\'est pas valide.',
-                'violations' => $violations,
-            ], 400);
-        }
         // Generate a unique slug for the game based on the title
         $slug = Str::slug($request->titre, '-', 'en');
         // slug is unique in the database
@@ -251,34 +231,8 @@ class GameController extends Controller
     }
 
     ////////////////////////////// edit game title and description
-    public function Edit_Game(Request $request, $slug)
+    public function Edit_Game(Game_Request $request, $slug)
     {
-        // $request->validate([
-        //     'titre' => 'required|string|max:60',
-        //     'description' => 'max:200',
-        // ]);
-        // Validate  data using  Validator
-        $validator = Validator::make($request->all(), [
-            'titre' => 'required|string|max:60',
-            'description' => 'max:200',
-
-        ]);
-        // Check if validation fails
-        if ($validator->fails()) {
-            $violations = [];
-            foreach ($validator->errors()->messages() as $field => $messages) {
-                $violations[$field] = [
-                    'message' => $messages[0],
-                ];
-            }
-            // Return a JSON response with invalid status, error message, and violations
-            return response()->json([
-                'status' => 'invalid',
-                'message' => 'Le corps de la demande n\'est pas valide.',
-                'violations' => $violations,
-            ], 400);
-        }
-
         try {
 
             // Find the game  by slug
