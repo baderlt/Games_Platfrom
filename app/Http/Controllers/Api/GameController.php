@@ -32,7 +32,7 @@ class GameController extends Controller
         if ($page < 0) {
             $page = 0;
         }
-        
+
         ///// get the games with slug,titre,vignette,uploadTimestamp (the last version of game ),name of auteur ,scoreCount the sum scores in this game 
         $query = Game::join('gameversions', 'games.id', '=', 'gameversions.game_id')
             ->join('users', 'games.auteur', '=', 'users.id')
@@ -154,7 +154,7 @@ class GameController extends Controller
             if ($zip->open($zipFilePath) === true) {
                 // extracted the file zip
                 // dd('ggg');
-            //    dd(public_path("storage/{$extractedPath}"));
+                //    dd(public_path("storage/{$extractedPath}"));
                 $extractResult = $zip->extractTo(public_path("storage/{$extractedPath}"));
                 $zip->close();
                 // dd($extractResult);
