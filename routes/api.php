@@ -44,8 +44,6 @@ Route::middleware(['auth:sanctum','BlockUser'])->group(function () {
 });
 
 
-
-
 Route::fallback(function () {
    return response()->json(['status'=>"not found",'message' => 'Not found'], 404);
 });
