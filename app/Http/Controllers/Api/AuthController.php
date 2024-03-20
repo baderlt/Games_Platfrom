@@ -61,10 +61,10 @@ class AuthController extends Controller
             }
             // Attempt to authenticate the user using the provided name and password
             if (Auth::attempt($request->only(['name', 'password']))) {
-                 // Update the last connection time for the user
+                // Update the last connection time for the user
                 $user->lastConextion = now();
                 $user->save();
-                 // Generate an API token for the authenticated user and return the response json 
+                // Generate an API token for the authenticated user and return the response json 
 
                 return response()->json([
                     'status' => true,
@@ -78,7 +78,7 @@ class AuthController extends Controller
                 'message' => "Nom d'utilisateur ou mot de passe incorrect",
             ], 401);
         } catch (\Throwable $th) {
-             // If an error occurs during the process, return an error response with the error message
+            // If an error occurs during the process, return an error response with the error message
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
@@ -100,7 +100,7 @@ class AuthController extends Controller
             // If not authenticated return an error response
             return response()->json(['status' => false, 'message' => 'User not authenticated'], 401);
         } catch (\Throwable $th) {
-              // If an error occurs during the process, return an error response with the error message
+            // If an error occurs during the process, return an error response with the error message
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
