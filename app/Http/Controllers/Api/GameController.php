@@ -32,7 +32,6 @@ class GameController extends Controller
         if ($page < 0) {
             $page = 0;
         }
-
         ///// get the games with slug,titre,vignette,uploadTimestamp (the last version of game ),name of auteur ,scoreCount the sum scores in this game 
         $query = Game::join('gameversions', 'games.id', '=', 'gameversions.game_id')
             ->join('users', 'games.auteur', '=', 'users.id')
@@ -43,7 +42,6 @@ class GameController extends Controller
             ->groupBy('games.slug', 'gameversions.game_id', 'games.titre', 'games.vignette', 'users.name')
             ->offset($page * $taille)
             ->limit($taille);
-
         // Execute the query
         $games = $query->get();
         ///totale count
