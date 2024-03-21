@@ -173,7 +173,6 @@ class GameController extends Controller
                         Storage::disk('local')->deleteDirectory("storage/{$extractedPath}/{$fileName}");
                         return response()->json(['status' => 'invalid', 'message' => 'File index.html not exists'], 400);
                     }
-
                     ///// rename the file extracted 
                     rename($from, $to);
                     // Game path
