@@ -90,6 +90,7 @@ class GameController extends Controller
     }
 
 
+    
     ////////////get Game With Slug
     public function Game_Slug($slug = null)
     {
@@ -117,6 +118,7 @@ class GameController extends Controller
         return response()->json($game, 200);
     }
 
+    
     /////////// upload a new version for game 
     public function uploadVersion(Request $request, $slug)
     {
