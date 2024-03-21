@@ -87,7 +87,6 @@ class GameController extends Controller
         return response()->json(["status" => "succès", 'slug' => $uniqueSlug], 201);
     }
 
-
     
     ////////////get Game With Slug
     public function Game_Slug($slug = null)
