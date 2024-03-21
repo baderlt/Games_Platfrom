@@ -345,10 +345,8 @@ class GameController extends Controller
         if (!$game) {
             return response()->json(['status' => 'invalid', 'message' => 'Game not found'], 404);
         }
-
         // Get the latest game version
         $latestVersion = GameVersion::where('game_id', $game->id)->latest()->first();
-
         // Create a new score
         $score = new Score;
         $score->score = $request->score;
