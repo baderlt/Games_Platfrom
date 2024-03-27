@@ -51,8 +51,6 @@ class SedderGlobal extends Seeder
             ["user_id"=>2,'version_jeu_id'=>3,"score"=>30.0],
             ["user_id"=>3,'version_jeu_id'=>2,"score"=>1000.0],
             ["user_id"=>3,'version_jeu_id'=>2,'score'=>-300.0],
-            ["user_id"=>4,'version_jeu_id'=>2,"score"=>5.0],
-            ["user_id"=>4,'version_jeu_id'=>3,"score"=>200.0],
         ];
 
         DB::table('scores')->insert($scores);
