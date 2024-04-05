@@ -1,4 +1,4 @@
-# Use PHP with Apache as the base image
+# Use PHP with Apache as the base image.
 FROM php:8.2-apache as web
 
 # Install Additional System Dependencies
