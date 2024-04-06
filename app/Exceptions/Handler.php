@@ -66,6 +66,7 @@ class Handler extends ExceptionHandler
         }
         
         }
+        
           // Check if the user is blocked
         $user = User::where('id', $request->id)->first();
         if ($user && $user->blocked) {
