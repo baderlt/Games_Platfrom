@@ -47,6 +47,7 @@ class Handler extends ExceptionHandler
 
     }
 
+    
     protected function handleAuthException(AuthenticationException $exception, $request)
     {
 
