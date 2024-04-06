@@ -45,7 +45,6 @@ class Handler extends ExceptionHandler
             return Parent::render($request, $exception);
         }
 
-
     }
 
     protected function handleAuthException(AuthenticationException $exception, $request)
