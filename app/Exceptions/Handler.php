@@ -57,14 +57,14 @@ class Handler extends ExceptionHandler
                 'message' => 'Missing token'
             ], 401);
 
-                 // Check if the token is invalid
-       if ($exception->getMessage() === 'Invalid token.') {
-        return response()->json([
-            'status' => 'unauthenticated',
-            'message' => 'Invalid token'
-        ], 401);
-    }
-    
+             // Check if the token is invalid
+           if ($exception->getMessage() === 'Invalid token.') {
+            return response()->json([
+                'status' => 'unauthenticated',
+                'message' => 'Invalid token'
+            ], 401);
+        }
+        
         }
           // Check if the user is blocked
         $user = User::where('id', $request->id)->first();
