@@ -50,9 +50,8 @@ class Handler extends ExceptionHandler
 
     protected function handleAuthException(AuthenticationException $exception, $request)
     {
-        // dd($request->headers);
 
-            // Check if the token is missing
+         // Check if the token is missing
             if ($exception->getMessage() === 'Unauthenticated.') {
             return response()->json([
                 'status' => 'unauthenticated',
