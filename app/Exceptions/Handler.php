@@ -37,8 +37,7 @@ class Handler extends ExceptionHandler
              // Handle AuthenticationException for json requests
         if ($exception instanceof AuthenticationException) {
             return $this->handleAuthException($exception, $request);
-            }
-   
+            }   
         }
         else{
              // Default handling for non-JSON requests
